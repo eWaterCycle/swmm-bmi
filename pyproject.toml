@@ -1,0 +1,21 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "leakybucket"
+description = "Template project for a hydrological model BMI for eWaterCycle."
+license = "Apache-2.0"
+version = "0.0.1"
+authors = [
+  { name = "Bart Schilperoort", email = "b.schilperoort@esciencecenter.nl" },
+]
+
+# Include here only the dependencies for the BMI Model
+# This is used to run the BmiModel inside the container
+dependencies = [
+  "bmipy",
+  "numpy",
+  "xarray",
+  "netcdf4",
+]
