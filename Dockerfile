@@ -1,7 +1,7 @@
 # BMI container for EPA SWMM5 via pyswmm, served with grpc4bmi.
 #
 # Build:
-#   docker build --tag swmm-grpc4bmi:v0.1.0 .
+#   docker build --tag swmm-grpc4bmi:v0.0.1 .
 #
 # Test from Python:
 #   from grpc4bmi.bmi_client_docker import BmiClientDocker
@@ -14,7 +14,7 @@
 
 FROM mambaorg/micromamba:1.3.1
 
-LABEL org.opencontainers.image.source="https://github.com/MarkMelotto/swmm-bmi"
+LABEL org.opencontainers.image.source="https://github.com/eWaterCycle/swmm-bmi"
 
 # pyswmm bundles the SWMM5 C library via swmm-toolkit; no separate SWMM install needed.
 RUN micromamba install -y -n base -c conda-forge python=3.10 && \
