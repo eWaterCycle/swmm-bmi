@@ -5,12 +5,12 @@
 #
 # Test from Python:
 #   from grpc4bmi.bmi_client_docker import BmiClientDocker
-#   model = BmiClientDocker('swmm-grpc4bmi:v0.1.0', work_dir='/tmp', delay=1)
+#   model = BmiClientDocker('swmm-grpc4bmi:v0.0.1', work_dir='/tmp', delay=1)
 #   model.get_component_name()
 #   del model
 #
 # Debug interactively:
-#   docker run --tty --interactive swmm-grpc4bmi:v0.1.0 bash
+#   docker run --tty --interactive swmm-grpc4bmi:v0.0.1 bash
 
 FROM mambaorg/micromamba:1.3.1
 

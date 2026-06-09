@@ -39,13 +39,19 @@ class SwmmBmi(Bmi):
 
     def initialize(self, config_file: str) -> None:
         self.config: dict[str, Any] = utils.read_config(config_file)
-        inp_file = utils.get_inp_file(self.config, config_file)
+        inp_file_path = utils.get_inp_file(self.config, config_file)
+        report_file_path = utils.get_inp_file(self.config, config_file, 'rpt_file')
+        out_file_path = utils.get_inp_file(self.config, config_file, 'out_file')
 
-        self._sim = Simulation(str(inp_file))
+        self._sim = Simulation(
+            inputfile=str(inp_file_path),
+            reportfile=str(report_file_path),
+            outputfile=str(out_file_path),
+        )
         self._sim.__enter__()
 
         # Advance by the model's own routing interval each BMI step.
-        self._timestep_s = utils.parse_routing_step(inp_file)
+        self._timestep_s = utils.parse_routing_step(inp_file_path)
         self._sim.step_advance(int(self._timestep_s))
 
         # Cache ordered lists so indices stay stable across calls.
@@ -56,7 +62,7 @@ class SwmmBmi(Bmi):
 
         # SWMM reports/accepts rain-gage rates in the model's own unit system
         # (US -> in/hr, SI -> mm/hr). Resolve the label for get_var_units().
-        self._precip_units = _PRECIP_UNITS[utils.parse_flow_units(inp_file)]
+        self._precip_units = _PRECIP_UNITS[utils.parse_flow_units(inp_file_path)]
 
 
         # Seed current time from start_time — current_time is unavailable in

@@ -7,8 +7,10 @@ def read_config(config_file: str) -> dict:
         return json.load(cfg)
 
 
-def get_inp_file(config: dict, config_file: str) -> Path:
-    inp_file = Path(config["inp_file"])
+def get_inp_file(config: dict, config_file: str, file_path: str = "inp_file") -> Path:
+    inp_file = Path(config[file_path])
+    if not inp_file.exists():
+        raise FileNotFoundError(f"SWMM input file not found: {inp_file}")
     if not inp_file.is_absolute():
         inp_file = Path(config_file).parent / inp_file
     return inp_file
