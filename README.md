@@ -78,12 +78,13 @@ model's own flow-unit system.
 
 **Output variables** (`get_value`):
 
-| Variable              | Grid          | Units    |
-|-----------------------|---------------|----------|
-| `subcatchment_runoff` | subcatchments | m3 s-1   |
-| `node_depth`          | nodes         | m        |
-| `node_flooding`       | nodes         | m3 s-1   |
-| `link_flow`           | links         | m3 s-1   |
+| Variable              | Grid          | Units             |
+|-----------------------|---------------|-------------------|
+| `subcatchment_runoff` | subcatchments | m3 s-1            |
+| `node_depth`          | nodes         | m                 |
+| `node_flooding`       | nodes         | m3 s-1            |
+| `link_flow`           | links         | m3 s-1            |
+| `precipitation`       | rain gages    | in hr-1 / mm hr-1 |
 
 **Input variables** (`set_value`):
 
@@ -91,6 +92,9 @@ model's own flow-unit system.
 |-----------------------|------------|--------------------------|-------|
 | `node_lateral_inflow` | nodes      | m3 s-1                   | Injected via pyswmm's `Node.generated_inflow`; held constant until the next `set_value`. |
 | `precipitation`       | rain gages | in hr-1 / mm hr-1        | Units follow the model's flow-unit system (US → in/hr, SI → mm/hr). |
+
+`precipitation` appears in both tables: rain-gage rates can be read back with
+`get_value` and overridden with `set_value`.
 
 A typical eWaterCycle coupling pre-computes forcing externally and injects it each
 timestep with `set_value("node_lateral_inflow", values)` or

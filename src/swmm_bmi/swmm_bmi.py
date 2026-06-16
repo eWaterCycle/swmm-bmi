@@ -25,6 +25,7 @@ _OUTPUT_VARS: dict[str, tuple[int, str]] = {
     "node_depth":          (_NODE_GRID,         "m"),
     "node_flooding":       (_NODE_GRID,         "m3 s-1"),
     "link_flow":           (_LINK_GRID,         "m3 s-1"),
+    "precipitation":       (_RAINGAGE_GRID,     "mm hr-1"),
 }
 _INPUT_VARS: dict[str, tuple[int, str]] = {
     "node_lateral_inflow": (_NODE_GRID,     "m3 s-1"),
