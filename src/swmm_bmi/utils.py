@@ -16,6 +16,24 @@ def get_inp_file(config: dict, config_file: str, file_path: str = "inp_file") ->
     return inp_file
 
 
+def resolve_output_file(path: str | None, config_file: str) -> str | None:
+    """Resolve an optional report/output file path for SWMM.
+
+    Returns None unchanged (pyswmm then derives the path next to the .inp file).
+    Absolute paths are used as-is; relative paths are resolved against the
+    config file's directory, consistent with get_inp_file(). The parent
+    directory is created if needed, since SWMM cannot open a file in a
+    missing directory (ERROR 305).
+    """
+    if path is None:
+        return None
+    out = Path(path)
+    if not out.is_absolute():
+        out = Path(config_file).parent / out
+    out.parent.mkdir(parents=True, exist_ok=True)
+    return str(out)
+
+
 def parse_subcatchment_gages(inp_file: Path) -> dict:
     """Return {subcatchment_id: gage_id} parsed from [SUBCATCHMENTS] section."""
     result = {}

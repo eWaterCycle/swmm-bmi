@@ -41,10 +41,15 @@ class SwmmBmi(Bmi):
     def initialize(self, config_file: str) -> None:
         self.config: dict[str, Any] = utils.read_config(config_file)
         inp_file_path = utils.get_inp_file(self.config, config_file)
-
+        # Optional: write the .rpt/.out somewhere other than next to the .inp.
+        # Relative paths resolve against the config file; parent dirs are created.
+        report_file = utils.resolve_output_file(self.config.get("report_file"), config_file)
+        output_file = utils.resolve_output_file(self.config.get("output_file"), config_file)
 
         self._sim = Simulation(
-            inputfile=str(inp_file_path)
+            inputfile=str(inp_file_path),
+            reportfile=report_file,
+            outputfile=output_file,
         )
         self._sim.__enter__()
 
